@@ -31,8 +31,14 @@ signal.signal(signal.SIGINT, siginit_handler)
 #check to make sure the following dependencies are present. This should essentially echo the build.py
 def check_dependencies():
 	#CHECK FOR DEPENDENCIES
+	errors=int(0)
 	if len(cli.check_sysfile('scapy'))==0:
 		print 'scapy executable not found. Make sure you have installed scapy (pip install scapy) or this wont work.'
+		errors = errors+1
+	if len(cli.check_sysfile('tcpdump'))==0:
+		print 'tcpdump executable not found. Make sure you have installed tcpdump or this wont work.'
+		errors = errors+1
+	if errors > 0:
 		return False
 	else:
 		return True
