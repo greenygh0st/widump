@@ -16,7 +16,9 @@ stores = Proto()
 stores.ap_list = []
 
 #catch that control+c (SIGINT) input so we can exit gracefully
+#Do this yourself: http://stackoverflow.com/questions/1112343/how-do-i-capture-sigint-in-python :D
 def siginit_handler(signal, frame):
+        print "One moment while we exit..."
         if stores.args.verbose: print('You pressed Ctrl+C. Gracefully exiting the program.')
         #get rid of the monitor interface
         DestoryMonitorInterface()
@@ -94,6 +96,7 @@ def CreateMonitorInterface():
 
 #restore the original interface
 def DestoryMonitorInterface():
+    if stores.args.verbose: print "One moment...getting rid of the monitor interface that we made."
     #Shut down the interface so we can make some changes
     if stores.args.verbose: print "Bringing down the "+stores.wlanMonName+" like you asked."
     cli.execute_shell("ifconfig "+stores.wlanMonName+" down")
@@ -138,7 +141,7 @@ def main(args):
 
     #create the monitor interface
     monint=""
-    if stores.args.alreadymon:
+    if stores.args.alreadymon: #if its already a monitor interface...? Maybe it would be better to determine this progamatically?
         monint=stores.args.interface
     else:
         monint=CreateMonitorInterface()
