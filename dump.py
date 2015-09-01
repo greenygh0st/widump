@@ -112,7 +112,7 @@ def DestoryMonitorInterface():
     #Bring the interface
     #ifconfig <interface> up
     #if stores.args.verbose: print "Raising the "+str(stores.args.interface)+" like you asked."
-    cli.execute_shell("ifconfig "+str(stores.args.interface)+" up")
+    #cli.execute_shell("ifconfig "+str(stores.args.interface)+" up")
 
     return True
 
