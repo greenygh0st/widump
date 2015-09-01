@@ -3,7 +3,6 @@
 #Maybe look into using this later??
 #http://stackoverflow.com/questions/21613091/how-to-use-scapy-to-determine-wireless-encryption-type
 from scapy.all import *
-import msvcrt
 import cli
 import signal
 
