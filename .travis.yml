@@ -8,3 +8,6 @@ python: "2.7"
 # command to run tests
 script:
   - python build.py install
+
+notifications:
+  slack: daleslab:iOjNthhpWvGcIYlDK532APwS
