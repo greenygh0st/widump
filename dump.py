@@ -18,13 +18,13 @@ stores.ap_list = []
 #catch that control+c (SIGINT) input so we can exit gracefully
 #Do this yourself: http://stackoverflow.com/questions/1112343/how-do-i-capture-sigint-in-python :D
 def siginit_handler(signal, frame):
-        print "One moment while we exit..."
-        if stores.args.verbose: print('You pressed Ctrl+C. Gracefully exiting the program.')
-        #get rid of the monitor interface
-        DestoryMonitorInterface()
-        #exit
-        print "Exiting..."
-        sys.exit(0)
+	print "One moment while we exit..."
+	if stores.args.verbose: print('You pressed Ctrl+C. Gracefully exiting the program.')
+	#get rid of the monitor interface
+	DestoryMonitorInterface()
+	#exit
+	print "Exiting..."
+	sys.exit(0)
 
 #register the signal interupt handler
 signal.signal(signal.SIGINT, siginit_handler)
@@ -73,64 +73,64 @@ def ValidInterface():
 
 #interface gets transformed from wlan0 to wlan0.mon
 def CreateMonitorInterface():
-    #create the name for our eventual monitor interface
-    stores.wlanMonName=str(stores.args.interface)+".mon"
+	#create the name for our eventual monitor interface
+	stores.wlanMonName=str(stores.args.interface)+".mon"
 
-    #Shut down the interface so we can make some changes
-    if stores.args.verbose: print "Bringing down the "+str(stores.args.interface)+" like you asked."
-    cli.execute_shell("ifconfig "+str(stores.args.interface)+" down")
+	#Shut down the interface so we can make some changes
+	if stores.args.verbose: print "Bringing down the "+str(stores.args.interface)+" like you asked."
+	cli.execute_shell("ifconfig "+str(stores.args.interface)+" down")
 
-    #Rename the interface -- ip link set peth0 name eth0
-    if stores.args.verbose: print "Trying to rename the "+str(stores.args.interface)+" to "+wlanMonName
-    cli.execute_shell("ip link set "+str(stores.args.interface)+" name "+wlanMonName)
+	#Rename the interface -- ip link set peth0 name eth0
+	if stores.args.verbose: print "Trying to rename the "+str(stores.args.interface)+" to "+wlanMonName
+	cli.execute_shell("ip link set "+str(stores.args.interface)+" name "+wlanMonName)
 
-    #Change the interface into a monitor interface
-    if stores.args.verbose: print "Switching the "+wlanMonName+" to being a monitor interface."
-    cli.execute_shell("iwconfig "+wlanMonName+" mode monitor")
+	#Change the interface into a monitor interface
+	if stores.args.verbose: print "Switching the "+wlanMonName+" to being a monitor interface."
+	cli.execute_shell("iwconfig "+wlanMonName+" mode monitor")
 
-    #Bring the interface
-    #ifconfig <interface> up
-    if stores.args.verbose: print "Raising the "+wlanMonName+" like you asked."
-    cli.execute_shell("ifconfig "+wlanMonName+" up")
-    return wlanMonName
+	#Bring the interface
+	#ifconfig <interface> up
+	if stores.args.verbose: print "Raising the "+wlanMonName+" like you asked."
+	cli.execute_shell("ifconfig "+wlanMonName+" up")
+	return wlanMonName
 
 #restore the original interface
 def DestoryMonitorInterface():
-    if stores.args.verbose: print "One moment...getting rid of the monitor interface that we made."
-    #Shut down the interface so we can make some changes
-    if stores.args.verbose: print "Bringing down the "+stores.wlanMonName+" like you asked."
-    cli.execute_shell("ifconfig "+stores.wlanMonName+" down")
+	if stores.args.verbose: print "One moment...getting rid of the monitor interface that we made."
+	#Shut down the interface so we can make some changes
+	if stores.args.verbose: print "Bringing down the "+stores.wlanMonName+" like you asked."
+	cli.execute_shell("ifconfig "+stores.wlanMonName+" down")
 
-    #Rename the interface -- ip link set peth0 name eth0
-    if stores.args.verbose: print "Trying to rename the "+stores.wlanMonName+" to "+str(stores.args.interface)
-    cli.execute_shell("ip link set "+stores.wlanMonName+" name "+str(stores.args.interface))
+	#Rename the interface -- ip link set peth0 name eth0
+	if stores.args.verbose: print "Trying to rename the "+stores.wlanMonName+" to "+str(stores.args.interface)
+	cli.execute_shell("ip link set "+stores.wlanMonName+" name "+str(stores.args.interface))
 
-    #Change the interface into a monitor interface
-	if stores.args.verbose: print "Switching the "+str(stores.args.interface)+"back to being a managed interface."
-    cli.execute_shell("iwconfig "+str(stores.args.interface)+" mode managed")
+	#Change the interface into a monitor interface
+	if stores.args.verbose: print "Switching the "+str(stores.args.interface)+" back to being a managed interface."
+	cli.execute_shell("iwconfig "+str(stores.args.interface)+" mode managed")
 
-    #Bring the interface
-    #ifconfig <interface> up
-    if stores.args.verbose: print "Raising the "+str(stores.args.interface)+" like you asked."
-    cli.execute_shell("ifconfig "+str(stores.args.interface)+" up")
+	#Bring the interface
+	#ifconfig <interface> up
+	if stores.args.verbose: print "Raising the "+str(stores.args.interface)+" like you asked."
+	cli.execute_shell("ifconfig "+str(stores.args.interface)+" up")
 
-    return True
+	return True
 
 #main loop handler
 #the actual handler for scapy that we loop through
 def PacketHandler(pkt):
-    if pkt.haslayer(Dot11):
-        if pkt.type == 0 and pkt.subtype == 8:
-            if pkt.addr2 not in stores.ap_list:
-    				ap_list.append(pkt.addr2)
-    				print "AP MAC: %s with SSID: %s " %(pkt.addr2, pkt.info)
+	if pkt.haslayer(Dot11):
+		if pkt.type == 0 and pkt.subtype == 8:
+			if pkt.addr2 not in stores.ap_list:
+				ap_list.append(pkt.addr2)
+				print "AP MAC: %s with SSID: %s " %(pkt.addr2, pkt.info)
 
 #main loop. This is where the application goes to
 def main(args):
-    #store our arguments so every function can access them
-    stores.args = args
+	#store our arguments so every function can access them
+	stores.args = args
 	cli.arguments = args #initialize args for cli
-    #check deps
+	#check deps
 	if not check_dependencies():
 		print 'Dependency check failed. Please make sure you have all dependencies installed.'
 		return
@@ -140,15 +140,15 @@ def main(args):
 		print 'The interface you selected is not valid or does not exist.'
 		return
 
-    #create the monitor interface
-    monint=""
-    if stores.args.alreadymon: #if its already a monitor interface...? Maybe it would be better to determine this progamatically?
-        monint=stores.args.interface
-    else:
-        monint=CreateMonitorInterface()
+	#create the monitor interface
+	monint=""
+	if stores.args.alreadymon: #if its already a monitor interface...? Maybe it would be better to determine this progamatically?
+		monint=stores.args.interface
+	else:
+		monint=CreateMonitorInterface()
 
-    #start sniffing
-    if len(monint) > 0:
-        sniff(iface=str(monint), prn = PacketHandler)
-    else:
-        print 'Error: Could not create monitor interface.'
+	#start sniffing
+	if len(monint) > 0:
+		sniff(iface=str(monint), prn = PacketHandler)
+	else:
+		print 'Error: Could not create monitor interface.'
