@@ -10,9 +10,6 @@ import widump.dump
 if __name__ == "__main__":
 	#check root or not
 	#if os.getenv('USER') != 'root':
-	if not os.getuid() == 0:
-		print "This tool must be run as root. It just simply won't work otherwise."
-		sys.exit(1)
 
 	parser = argparse.ArgumentParser(description='This tool/utility allows you to skim the airways for the wifi tubes.')
 	parser.add_argument('-D', '--dumpfile', default='', required=False, help='Specifiy where you would like to locate the dump file......so you can use it later. >:)')
@@ -22,4 +19,7 @@ if __name__ == "__main__":
 
 	parser.add_argument('interface', help='This should be a non-monitor interface. If you select an already configured monitor interface use the -m option.')
 	args = parser.parse_args()
+	if not os.getuid() == 0 and not args.testing:
+		print "This tool must be run as root. It just simply won't work otherwise."
+		sys.exit(1)
 	widump.dump.main(args)
