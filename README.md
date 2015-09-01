@@ -1,1 +1,3 @@
+[![Build Status](https://travis-ci.org/greenygh0st/widump.svg?branch=master)](https://travis-ci.org/greenygh0st/widump)
+
 Need to make an actual readme...
