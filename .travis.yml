@@ -8,6 +8,7 @@ python: "2.7"
 # command to run tests
 script:
   - python build.py install
+  - widump -t wlan0
 
 notifications:
   slack: daleslab:iOjNthhpWvGcIYlDK532APwS

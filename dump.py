@@ -135,7 +135,7 @@ def main(args):
 		return
 
 	#check to make sure that the selected interface is valid
-	if not ValidInterface():
+	if not ValidInterface() or stores.args.testing:
 		print 'The interface you selected is not valid or does not exist.'
 		return
 
@@ -147,7 +147,7 @@ def main(args):
 		monint=CreateMonitorInterface()
 
 	#start sniffing
-	if len(monint) > 0:
+	if len(monint) > 0 and not stores.args.testing:
 		sniff(iface=str(monint), prn = PacketHandler)
 	else:
 		print 'Error: Could not create monitor interface.'

@@ -16,8 +16,9 @@ if __name__ == "__main__":
 	parser = argparse.ArgumentParser(description='This tool/utility allows you to skim the airways for the wifi tubes.')
 	parser.add_argument('-D', '--dumpfile', default='', required=False, help='Specifiy where you would like to locate the dump file......so you can use it later. >:)')
 	parser.add_argument('-m', '--alreadymon', required=False, action='store_true', help='If the interface you are selecting is already a monitor interface.')
+	parser.add_argument('-t', '--testing', required=False, action='store_true', help=argparse.SUPPRESS)
 	parser.add_argument('-v', '--verbose', required=False, action='store_true', help='Gives verbose feedback.')
 
 	parser.add_argument('interface', help='This should be a non-monitor interface. If you select an already configured monitor interface use the -m option.')
 	args = parser.parse_args()
-	authwatch.dump.main(args)
+	widump.dump.main(args)
