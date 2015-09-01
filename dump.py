@@ -106,7 +106,7 @@ def DestoryMonitorInterface():
     cli.execute_shell("ip link set "+stores.wlanMonName+" name "+str(stores.args.interface)
 
     #Change the interface into a monitor interface
-    if stores.args.verbose: print "Switching the "+str(stores.args.interface)+" back to being a managed interface."
+	if stores.args.verbose: print "Switching the "+str(stores.args.interface)+" back to being a managed interface."
     cli.execute_shell("iwconfig "+str(stores.args.interface)+" mode managed")
 
     #Bring the interface
