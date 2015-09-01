@@ -102,7 +102,7 @@ def DestoryMonitorInterface():
     cli.execute_shell("ifconfig "+stores.wlanMonName+" down")
 
     #Rename the interface -- ip link set peth0 name eth0
-    if stores.args.verbose: print "Trying to rename the "+stores.wlanMonName+" to "+str(stores.args.interface))
+    if stores.args.verbose: print "Trying to rename the "+stores.wlanMonName+" to "+str(stores.args.interface)
     cli.execute_shell("ip link set "+stores.wlanMonName+" name "+str(stores.args.interface))
 
     #Change the interface into a monitor interface
