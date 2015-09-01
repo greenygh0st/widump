@@ -107,12 +107,12 @@ def DestoryMonitorInterface():
 
     #Change the interface into a monitor interface
 	#if stores.args.verbose: print "Switching the "+str(stores.args.interface)+" back to being a managed interface."
-    cli.execute_shell("iwconfig "+stores.args.interface+" mode managed")
+    #cli.execute_shell("iwconfig "+str(stores.args.interface)+" mode managed")
 
     #Bring the interface
     #ifconfig <interface> up
     #if stores.args.verbose: print "Raising the "+str(stores.args.interface)+" like you asked."
-    cli.execute_shell("ifconfig "+stores.args.interface+" up")
+    cli.execute_shell("ifconfig "+str(stores.args.interface)+" up")
 
     return True
 
