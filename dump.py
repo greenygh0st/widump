@@ -98,21 +98,21 @@ def CreateMonitorInterface():
 def DestoryMonitorInterface():
     if stores.args.verbose: print "One moment...getting rid of the monitor interface that we made."
     #Shut down the interface so we can make some changes
-    if stores.args.verbose: print "Bringing down the "+stores.wlanMonName+" like you asked."
+    #if stores.args.verbose: print "Bringing down the "+stores.wlanMonName+" like you asked."
     cli.execute_shell("ifconfig "+stores.wlanMonName+" down")
 
     #Rename the interface -- ip link set peth0 name eth0
-    if stores.args.verbose: print "Trying to rename the "+stores.wlanMonName+" to "+str(stores.args.interface)
+    #if stores.args.verbose: print "Trying to rename the "+stores.wlanMonName+" to "+str(stores.args.interface)
     cli.execute_shell("ip link set "+stores.wlanMonName+" name "+str(stores.args.interface)
 
     #Change the interface into a monitor interface
-	if stores.args.verbose: print "Switching the "+str(stores.args.interface)+" back to being a managed interface."
-    cli.execute_shell("iwconfig "+str(stores.args.interface)+" mode managed")
+	#if stores.args.verbose: print "Switching the "+str(stores.args.interface)+" back to being a managed interface."
+    cli.execute_shell("iwconfig "+stores.args.interface+" mode managed")
 
     #Bring the interface
     #ifconfig <interface> up
-    if stores.args.verbose: print "Raising the "+str(stores.args.interface)+" like you asked."
-    cli.execute_shell("ifconfig "+str(stores.args.interface)+" up")
+    #if stores.args.verbose: print "Raising the "+str(stores.args.interface)+" like you asked."
+    cli.execute_shell("ifconfig "+stores.args.interface+" up")
 
     return True
 
