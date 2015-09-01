@@ -129,6 +129,7 @@ def PacketHandler(pkt):
 def main(args):
     #store our arguments so every function can access them
     stores.args = args
+	cli.arguments = args #initialize args for cli
     #check deps
 	if not check_dependencies():
 		print 'Dependency check failed. Please make sure you have all dependencies installed.'
