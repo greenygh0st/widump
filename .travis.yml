@@ -9,7 +9,7 @@ install:
 # command to run tests
 script:
   - python build.py install
-  - widump -t wlan0
+  - widump -vt wlan0
 
 notifications:
   slack: daleslab:iOjNthhpWvGcIYlDK532APwS
