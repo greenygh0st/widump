@@ -11,5 +11,6 @@ script:
   - python build.py install
   - widump -vt wlan0
 
+#notify the slack channel on build completion
 notifications:
   slack: daleslab:iOjNthhpWvGcIYlDK532APwS
